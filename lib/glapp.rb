@@ -3,23 +3,23 @@ require 'opengl'
 
 module GLApp
   attr_reader :width, :height, :title
-  
+
   def show(width, height, title = "glapp", fullscreen = false)
     glutInit
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
-    
+
     @width = width
     @height = height
     @title = title
-    
+
     fullscreen ? go_fullscreen : go_windowed
     setup
-    
+
     setup_context
     wire
     glutMainLoop
   end
-  
+
   def go_windowed
     if glutGameModeGet(GLUT_GAME_MODE_ACTIVE) != 0
       glutLeaveGameMode
@@ -43,13 +43,13 @@ module GLApp
       go_windowed
     end
   end
-  
+
   module Helpers
     def clear
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     end
   end
-  
+
   # begin hooks
 
   def setup_context
@@ -58,10 +58,10 @@ module GLApp
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glutIgnoreKeyRepeat(1)
   end
-  
+
   def setup
   end
-  
+
   def pre_draw
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity
@@ -70,41 +70,41 @@ module GLApp
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity
   end
-  
+
   def draw
   end
-  
+
   def post_draw
     glutSwapBuffers
   end
-  
+
   def update(seconds)
   end
-  
+
   def keyboard_down(key, modifiers)
   end
-  
+
   def keyboard_up(key, modifiers)
   end
-  
+
   def special_keyboard_down(key, modifiers)
   end
-  
+
   def special_keyboard_up(key, modifiers)
   end
-  
+
   def mouse_click(button, state, x, y)
   end
-  
+
   def mouse_dragging_motion(x, y)
   end
-  
+
   def mouse_passive_motion(x, y)
   end
-  
+
   def mouse_motion(x, y)
   end
-  
+
   def resize
     # Reset the coordinate system
     glMatrixMode(GL_PROJECTION)
@@ -121,9 +121,9 @@ module GLApp
               0, 0, -1,
               0, 1, 0)
   end
-  
+
   # end hooks
-  
+
   def wire
     glutDisplayFunc(lambda do
       pre_draw
